@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.hostname = "BANCO"
+  config.vm.network "forwarded_port", guest: 3306, host: 3306
+  #config.vm.synced_folder ".", "/home/matheus/Documentos/Project/BANCO/files", :mount_options => ["dmode=777","fmode=666"]
+  #
+  # View the documentation for the provider you are using for more
+  # information on available options.
+  config.vm.provider "virtualbox" do |v|
+    v.name = "BANCO"
+  end
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+   config.vm.provision "shell", inline: <<-SHELL
+
+   debconf-set-selections <<< 'mysql-server mysql-server/root_password password projectmaster123'
+   debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password projectmaster123'
+   apt-get update
+   apt-get install -y mysql-server apache2 php php-mysql phpmyadmin 
+
+
+   SHELL
+end
