@@ -12,4 +12,6 @@ O Programa é feito a partir de estudo, usando vagrant e controle via Shell Scir
 
 Para iniciar o projeto, execute o script "./start.sh", on o mesmo existe a opção de ver o status da BOX, desligar e destrui-la.
 
+Caso não tenha instalado o Vagrant e o Virtualbox, use os comandos:
+sudo apt install virtualbox virtualbox-qt vagrant
 
